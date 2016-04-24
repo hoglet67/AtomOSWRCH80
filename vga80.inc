@@ -977,7 +977,10 @@ exevdu22:       ldy     #0              ; reset y register
                 lda     queue+1         ; load mode
                 sta     $52             ; save graphics mode
                 beq     LF6C2           ; clear 0
-                cmp     #7              ; mode 7 (VGA80)
+                cmp		#8				; mode 8 tweak (dumped by Z80 Tube client)
+                bne		notmode8
+                lda		#7				; if mode = 8 then mode = 7
+notmode8:       cmp     #7              ; mode 7 (VGA80)
                 bne     LF684
 mode7:          jmp     LFD69           ; clear the screen and end
 LF684:          cmp     #5              ; test for mode > 4
