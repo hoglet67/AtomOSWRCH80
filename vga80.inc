@@ -498,6 +498,12 @@ LFE0D:  lda     SCREEN,y        ; Get byte from upper text page
 LFE26:  sta     ($DE),y         ; Clear the character to black
         dey                     ; Point to the next character
         bpl     LFE26           ; ..and clear the entire print line
+        
+        ldy     #NUMCOLS-1      ; Set character pointer to end of line
+        lda     attrib          ; Get attribute
+LFE26a: sta     $98B0,y         ; Set the current attribute
+        dey                     ; Point to the next character
+        bpl     LFE26a          ; ..and clear the entire print line        
         rts                     ;
 
 ;    Add One Line to the Cursor Position subroutine
